@@ -1,0 +1,18 @@
+/* Additional custom styles */
+.transition-opacity {
+    transition-property: opacity;
+    transition-duration: 300ms;
+}
+
+/* Dark mode styles */
+.dark-mode {
+    background-color: #1f2937;
+    color: #fff;
+}
+
+/* Position the dark mode button */
+.dark-mode-button {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+}

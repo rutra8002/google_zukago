@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Result</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <meta charset="UTF-8">
+</head>
+<body class="bg-white text-gray-800 dark:bg-gray-800 dark:text-white">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold mb-4">Request Result</h1>
+        <form method="POST" action="{{ url_for('add_result') }}" class="space-y-4">
+            <div class="flex items-center">
+                <input type="text" name="name" placeholder="Name" class="flex-grow rounded-l-lg px-4 py-2 border text-gray-800 border-gray-200 bg-white dark:bg-gray-700 dark:text-gray-200 focus:outline-none focus:ring focus:border-blue-500">
+                <input type="text" name="url" placeholder="URL" class="flex-grow rounded-r-lg px-4 py-2 border text-gray-800 border-gray-200 bg-white dark:bg-gray-700 dark:text-gray-200 focus:outline-none focus:ring focus:border-blue-500">
+            </div>
+            <button type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-opacity">Submit</button>
+        </form>
+        {% if success_message %}
+            <p class="text-green-600 font-bold">{{ success_message }}</p>
+        {% endif %}
+
+        <a href="{{ url_for('home') }}" class="block text-center text-blue-500 hover:no-underline mt-4 px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition-opacity">Back to Home</a>
+
+        <!-- Dark mode button -->
+        <button id="darkModeButton" class="dark-mode-button px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition-opacity">
+            Enable Dark Mode
+        </button>
+    </div>
+
+    <script>
+        const darkModeButton = document.getElementById('darkModeButton');
+
+        function enableDarkMode() {
+            document.body.classList.add('dark-mode');
+            darkModeButton.textContent = 'Disable Dark Mode';
+            localStorage.setItem('darkModeEnabled', 'true');
+        }
+
+        function disableDarkMode() {
+            document.body.classList.remove('dark-mode');
+            darkModeButton.textContent = 'Enable Dark Mode';
+            localStorage.setItem('darkModeEnabled', 'false');
+        }
+
+        darkModeButton.addEventListener('click', function() {
+            const darkModeEnabled = localStorage.getItem('darkModeEnabled') === 'true';
+
+            if (darkModeEnabled) {
+                disableDarkMode();
+            } else {
+                enableDarkMode();
+            }
+        });
+
+        // Check if dark mode is enabled from previous session
+        const darkModeEnabled = localStorage.getItem('darkModeEnabled') === 'true';
+
+        if (darkModeEnabled) {
+            enableDarkMode();
+        } else {
+            disableDarkMode();
+        }
+    </script>
+</body>
+</html>
